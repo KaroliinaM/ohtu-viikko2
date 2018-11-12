@@ -23,6 +23,7 @@ public class Submission {
         this.course=name;
     }
 
+
     public int getWeek() {
         return week;
     }
@@ -31,6 +32,13 @@ public class Submission {
     }
     public int getExerciseCount() {
         return this.exercises.length;
+    }
+    public String getExercises() {
+        String palautettava="";
+        for(int i=0; i<exercises.length; i++) {
+            palautettava+=exercises[i]+", ";
+        }
+        return palautettava;                
     }
     public String getCourseName() {
         return this.course;

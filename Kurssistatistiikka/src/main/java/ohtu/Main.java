@@ -2,6 +2,7 @@ package ohtu;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.apache.http.client.fluent.Request;
 
 public class Main {
@@ -23,19 +24,36 @@ public class Main {
         System.out.println( coursebodyText );
 
         Gson mapper = new Gson();
+        Gson mapper2 = new Gson();
         Submission[] subs = mapper.fromJson(bodyText, Submission[].class);
+        Course[] classes = mapper2.fromJson(coursebodyText, Course[].class);
         int exerciseCount=0;
         int hours=0;
-        
-        
-        System.out.println("Oliot:");
-                    System.out.println("Opiskelijanro "+ studentNr +"\n\n");
+        ArrayList<MyCourses> courseList=new ArrayList<MyCourses>();
+        ArrayList<String> courseNames=new ArrayList<>();
         for (Submission submission : subs) {
-            System.out.println(submission);
-            exerciseCount+=submission.getExerciseCount();
-            hours+=submission.getHours();
+            if(!courseNames.contains(submission.getCourseName())) {
+                courseNames.add(submission.getCourseName());
+            }
         }
-        System.out.println("yhteensä: "+exerciseCount+" tehtävää " + hours+ " tuntia.");
+        for(String s: courseNames) {
+            MyCourses c=new MyCourses(s, classes, subs);
+            courseList.add(c);
+        }
+        
+        
+        
+        //System.out.println("Oliot:");
+        System.out.println("Opiskelijanro "+ studentNr +"\n\n");
+        for(MyCourses m: courseList) {
+            System.out.println(m);
+        }
+//        for (Submission submission : subs) {
+//            System.out.println(submission);
+//            exerciseCount+=submission.getExerciseCount();
+//            hours+=submission.getHours();
+//        }
+//        System.out.println("yhteensä: "+exerciseCount+" tehtävää " + hours+ " tuntia.");
 
     }
 }
