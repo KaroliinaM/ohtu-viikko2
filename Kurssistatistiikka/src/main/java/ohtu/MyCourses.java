@@ -15,6 +15,10 @@ public class MyCourses {
 
     private String name;
     private Course course;
+    private int allHours;
+    private int allExercises;
+    private int allDoneExercises;
+    
     private int maxExercises=0;
     private int doneExercises=0;
     private int sumHours=0;
@@ -48,6 +52,15 @@ public class MyCourses {
 //yhteensä: 26/30 tehtävää 25 tuntia
         
     }
+    public void setAllHours(int allHours) {
+        this.allHours=allHours;
+    }
+    public void setAllExercises(int allExercises) {
+        this.allExercises=allExercises;
+    }
+    public void setAllDoneExercises(int doneExercises) {
+        this.allDoneExercises=doneExercises;
+    }
     @Override
     public String toString() {
         String palautettava="\n\n"+this.course.getFullName()+ " " + this.course.getTerm()+ " "+this.course.getYear() +"\n\n";
@@ -58,6 +71,7 @@ public class MyCourses {
             palautettava+="\n";
         }
         palautettava+="yhteensä " + this.doneExercises+"/"+course.getExerciseCount()+" "+ this.sumHours+" tuntia";
+        palautettava+="\nkurssilla yhteensä "+this.allExercises+" palautusta, palautettuja tehtäviä "+this.allDoneExercises+" kpl, aikaa käytetty yhteensä "+this.allHours+" tuntia";
         return palautettava;
         
     }
