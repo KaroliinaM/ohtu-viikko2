@@ -40,12 +40,23 @@ public class Stepdefs {
     }
     @Given("^command new user is selected$")
     public void new_user_selected() throws Throwable {
-        driver.get(baseUrl);
-        sleep(2);
-        WebElement element=driver.findElement(By.linkText("register new user"));
-        element.click();
-        sleep(2);
+        newUserSelected();
+
         
+    }
+    @Given("^user with username \"([^\"]*)\" with password \"([^\"]*)\" is successfully created$")
+    public void user_succesfully_created(String username, String password) throws Throwable {
+        newUserSelected();
+        signUpWith(username, password, password);
+        pageHasContent("Welcome to Ohtu Application!");
+        goViaLink("continue to application mainpage");
+        goViaLink("logout");
+    }
+    @Given("^user with username \"([^\"]*)\" and password \"([^\"]*)\" is tried to be created$")
+    public void user_creation_failed(String username, String password) throws Throwable {
+        newUserSelected();
+        signUpWith(username, password, password);
+        goViaLink("back to home");
     }
 
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
@@ -159,5 +170,19 @@ public class Stepdefs {
         element.sendKeys(passwordConf);
         element=driver.findElement(By.name("signup"));
         element.submit();
+        sleep(1);
+    }
+
+    private void newUserSelected() {
+       driver.get(baseUrl);
+       sleep(1);
+       WebElement element=driver.findElement(By.linkText("register new user"));
+       element.click();
+       sleep(1);
+    }
+    private void goViaLink(String linkText) {
+        WebElement element=driver.findElement(By.linkText(linkText));
+        element.click();
+        sleep(1);
     }
 }
