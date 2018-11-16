@@ -37,7 +37,16 @@ public class Stepdefs {
         element.click();
         System.out.println(driver.getPageSource());
         sleep(2);
-    } 
+    }
+    @Given("^command new user is selected$")
+    public void new_user_selected() throws Throwable {
+        driver.get(baseUrl);
+        sleep(2);
+        WebElement element=driver.findElement(By.linkText("register new user"));
+        element.click();
+        sleep(2);
+        
+    }
 
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
     public void username_and_password_are_given(String username, String password) throws Throwable {
@@ -65,9 +74,31 @@ public class Stepdefs {
     }
     
     @When("^incorrect username \"([^\"]*)\" and password \"([^\"]*)\" are given") 
-    public void incorrect_username_and_password_are_given(String username, String password) {
+    public void incorrect_username_and_password_are_given(String username, String password) throws Throwable{
         logInWith(username, password);
     }
+    
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered")
+    public void valid_username_and_password_and_matching_confirmation_are_given(String username, String password) throws Throwable {
+        signUpWith(username, password, password);
+    }
+    @When("^an invalid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void invalid_username_and_valid_password_and_valid_confirmation_are_given(String username, String password) throws Throwable {
+        signUpWith(username, password, password);
+    }
+    
+    @When("^a correct username \"([^\"]*)\" and too short password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void valid_username_and_short_password_and_valid_confirmation_are_given(String username, String password) throws Throwable {
+        signUpWith(username, password, password);
+        sleep(2);
+    }
+    
+    @When("^a correct username \"([^\"]*)\" and password \"([^\"]*)\" and unmatching password confirmation are entered$")
+    public void valid_username_and_password_and_invalid_comfirmation(String username, String password) throws Throwable {
+        signUpWith(username, password, "salasana2");
+        sleep(2);
+    }
+        
     
     @Then("^user is logged in$")
     public void user_is_logged_in() throws Throwable {
@@ -78,7 +109,18 @@ public class Stepdefs {
     public void user_is_not_logged_in_and_error_message_is_given() throws Throwable {
         pageHasContent("invalid username or password");
         pageHasContent("Give your credentials to login");
-    }     
+    }
+    
+    @Then("^a new user is created$")
+    public void new_user_is_created() throws Throwable {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+    
+    @Then("^user is not created and error \"([^\"]*)\" is reported$")
+    public void user_not_crated_and_error_reported(String message) throws Throwable {
+        pageHasContent(message);
+        pageHasContent("Create username and give password");
+    }            
     
     @After
     public void tearDown(){
@@ -105,5 +147,17 @@ public class Stepdefs {
             Thread.sleep(n * 1000);
         } catch (Exception e) {
         }
+    }
+
+    private void signUpWith(String username, String password, String passwordConf) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element=driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element=driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element=driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(passwordConf);
+        element=driver.findElement(By.name("signup"));
+        element.submit();
     }
 }
