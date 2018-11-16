@@ -4,21 +4,39 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import java.io.File;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
 
 public class Stepdefs {
-    WebDriver driver = new ChromeDriver();
+    
+    //WebDriver driver = new ChromeDriver();
+ //   WebDriver driver = new HtmlUnitDriver();
+            File pathBinary = new File("/home/kape/firefox/firefox");
+        FirefoxBinary firefoxBinary = new FirefoxBinary(pathBinary);
+        FirefoxProfile firefoxProfile = new FirefoxProfile();
+        WebDriver driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
     String baseUrl = "http://localhost:4567";
+    
     
     @Given("^login is selected$")
     public void login_selected() throws Throwable {
+        System.out.println("Ekan testin alku");
         driver.get(baseUrl);
+        System.out.println(driver.getPageSource());
+        sleep(2);
         WebElement element = driver.findElement(By.linkText("login"));       
-        element.click();          
+        element.click();
+        System.out.println(driver.getPageSource());
+        sleep(2);
     } 
 
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
@@ -43,6 +61,11 @@ public class Stepdefs {
 
     @When("^correct username \"([^\"]*)\" and incorrect password \"([^\"]*)\" are given$")
     public void username_and_incorrect_password_are_given(String username, String password) throws Throwable {
+        logInWith(username, password);
+    }
+    
+    @When("^incorrect username \"([^\"]*)\" and password \"([^\"]*)\" are given") 
+    public void incorrect_username_and_password_are_given(String username, String password) {
         logInWith(username, password);
     }
     
@@ -76,5 +99,11 @@ public class Stepdefs {
         element.sendKeys(password);
         element = driver.findElement(By.name("login"));
         element.submit();  
-    } 
+    }
+        private static void sleep(int n) {
+        try {
+            Thread.sleep(n * 1000);
+        } catch (Exception e) {
+        }
+    }
 }

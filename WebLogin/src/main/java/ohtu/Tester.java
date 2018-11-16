@@ -1,19 +1,26 @@
 package ohtu;
 
+import java.io.File;
 import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class Tester {
 
     public static void main(String[] args) {
+        File pathBinary = new File("/home/kape/firefox/firefox");
+        FirefoxBinary firefoxBinary = new FirefoxBinary(pathBinary);
+        FirefoxProfile firefoxProfile = new FirefoxProfile();
+        WebDriver driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
 
         //ChromeDriverManager.getInstance().setup();
-        WebDriver driver = new HtmlUnitDriver();
-
+        // WebDriver driver = new HtmlUnitDriver();
         driver.get("http://localhost:4567");
 
         System.out.println(driver.getPageSource());
@@ -71,7 +78,7 @@ public class Tester {
 
         element = driver.findElement(By.name("username"));
         Random r = new Random();
-        String username="pasi"+r.nextInt(100000);
+        String username = "pasi" + r.nextInt(100000);
         element.sendKeys(username);
         element = driver.findElement(By.name("password"));
         element.sendKeys("uusiPassu");
@@ -83,23 +90,22 @@ public class Tester {
 
         System.out.println(driver.getPageSource());
         sleep(3);
-        element=driver.findElement(By.linkText("continue to application mainpage"));
+        element = driver.findElement(By.linkText("continue to application mainpage"));
         element.click();
         System.out.println(driver.getPageSource());
         sleep(3);
-        
+
         element = driver.findElement(By.linkText("logout"));
         element.click();
         System.out.println(driver.getPageSource());
 
         sleep(3);
-        
-        
+
         element = driver.findElement(By.linkText("login"));
         element.click();
         System.out.println(driver.getPageSource());
         sleep(3);
-        
+
         loginAttempt(username, "uusiPassu", driver);
 
         driver.quit();
@@ -127,5 +133,4 @@ public class Tester {
         sleep(3);
     }
 
-    
 }

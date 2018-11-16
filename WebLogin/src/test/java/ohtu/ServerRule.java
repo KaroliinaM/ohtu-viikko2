@@ -15,10 +15,13 @@ public class ServerRule extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
+//        System.out.println("before-lohko");
+//        ChromeDriverManager.getInstance().setup();
         Spark.port(port);
         UserDao dao = new UserDaoForTests();
         dao.add(new User("jukka", "akkuj"));
         Main.setDao(dao);
+        System.out.println("before-lohkon loppu");
         Main.main(null);
     }
 
