@@ -2,6 +2,7 @@
 apply plugin: 'java'
 
 apply plugin: 'application'
+apply plugin: "jacoco"
 
 repositories {
     jcenter()
@@ -13,7 +14,7 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-context', version:'3.1.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-context-support', version:'3.1.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-beans', version:'3.1.1.RELEASE'
-    testCompile 'org.mockito:mockito-core:2.10.0'  
+    testCompile 'org.mockito:mockito-core:2.10.0'
     testCompile 'junit:junit:4.12'
 }
 

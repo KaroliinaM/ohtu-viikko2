@@ -15,18 +15,18 @@ public class Kauppa {
     private KP kirjanpito;
     private String kaupanTili;
 
-    public Kauppa() {
-        ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
-        varasto=ctx.getBean(Varasto.class);
-        //varasto = new Varasto(new Kirjanpito());
-        pankki=ctx.getBean(Pankki.class);
-//        pankki = new Pankki(new Kirjanpito());
-        viitegeneraattori=ctx.getBean(Viitegeneraattori.class);
-//        viitegeneraattori = new Viitegeneraattori();
-        kirjanpito=ctx.getBean(KP.class);
-
-        kaupanTili = "33333-44455";
-    }
+//    public Kauppa() {
+//        ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
+//        varasto=ctx.getBean(Varasto.class);
+//        //varasto = new Varasto(new Kirjanpito());
+//        pankki=ctx.getBean(Pankki.class);
+////        pankki = new Pankki(new Kirjanpito());
+//        viitegeneraattori=ctx.getBean(Viitegeneraattori.class);
+////        viitegeneraattori = new Viitegeneraattori();
+//        kirjanpito=ctx.getBean(KP.class);
+//
+//        kaupanTili = "33333-44455";
+//    }
     @Autowired
     public Kauppa(Varasto v, Pankki p, Viitegeneraattori vg){
         varasto=v;
@@ -40,8 +40,10 @@ public class Kauppa {
     }
 
     public void poistaKorista(int id) {
-        T t = varasto.haeTuote(id); 
+        T t = varasto.haeTuote(id);
+        ostoskori.poista(t);
         varasto.palautaVarastoon(t);
+        
     }
 
     public void lisaaKoriin(int id) {

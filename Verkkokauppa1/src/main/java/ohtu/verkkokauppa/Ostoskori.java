@@ -14,7 +14,7 @@ public class Ostoskori {
         tuotteet.add(t);
     }
 
-    public void poista(Tuote t) {
+    public void poista(T t) {
         tuotteet.remove(t);
     }
 
