@@ -16,6 +16,7 @@ public class Main {
         //Kauppa kauppa = new Kauppa();
         //Kauppa kauppa = new Kauppa(new Varasto(), new Pankki(), new Viitegeneraattori());
         ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
+
 // 
         Kauppa kauppa = ctx.getBean(Kauppa.class);
 //
