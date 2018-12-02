@@ -115,19 +115,19 @@ public class IntJoukko {
 
     private static IntJoukko muodostaJoukko(IntJoukko a, IntJoukko b, String operaatio) {
         IntJoukko z = new IntJoukko();
-        int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
+        int[] aJoukonTaulu = a.toIntArray();
+        int[] bJoukonTaulu = b.toIntArray();
 
         if (operaatio.equals("yhdiste")) {
-            z.lisaaTaulukko(aTaulu);
-            z.lisaaTaulukko(bTaulu);
+            z.lisaaTaulukko(aJoukonTaulu);
+            z.lisaaTaulukko(bJoukonTaulu);
         }
         if (operaatio.equals("erotus")) {
-            z.lisaaTaulukko(aTaulu);
-            z.poistaTaulukko(bTaulu);
+            z.lisaaTaulukko(aJoukonTaulu);
+            z.poistaTaulukko(bJoukonTaulu);
         }
         if (operaatio.equals("leikkaus")) {
-            z.lisääMikäliJoukossa(aTaulu, b);
+            z.lisääMikäliJoukossa(aJoukonTaulu, b);
         }
 
         return z;
