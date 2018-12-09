@@ -14,9 +14,11 @@ import laskin.Sovelluslogiikka;
  * @author kape
  */
 public class Nollaa extends Komento {
+    private int arvo;
 
     public Nollaa(TextField tuloskentta, TextField syotekentta, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         super(tuloskentta, syotekentta, nollaa, undo, sovellus);
+        
     }
 
 //    private TextField tuloskentta;
@@ -35,6 +37,13 @@ public class Nollaa extends Komento {
 //    }
     @Override
     public void suorita() {
+        arvo = 0;
+
+        try {
+            arvo = Integer.parseInt(tuloskentta.getText());
+        } catch (Exception e) {
+            System.out.println("Virhe");
+        }
         sovellus.nollaa();
         getTulos();
         enableOrDisableButtons();
@@ -52,7 +61,8 @@ public class Nollaa extends Komento {
 
     @Override
     public void peru() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tuloskentta.setText("" + arvo);
+        
     }
 
 }

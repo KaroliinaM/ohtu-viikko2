@@ -14,6 +14,7 @@ import laskin.Sovelluslogiikka;
  * @author kape
  */
 public class Summa extends Komento {
+    private int arvo;
 
     public Summa(TextField tuloskentta, TextField syotekentta, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         super(tuloskentta, syotekentta, nollaa, undo, sovellus);
@@ -35,7 +36,7 @@ public class Summa extends Komento {
 //    }
     @Override
     public void suorita() {
-        int arvo = getSyote();
+        arvo = getSyote();
         sovellus.plus(arvo);
         getTulos();
         enableOrDisableButtons();
@@ -43,7 +44,9 @@ public class Summa extends Komento {
 
     @Override
     public void peru() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sovellus.miinus(arvo);
+        getTulos();
+        enableOrDisableButtons();
     }
 
 }

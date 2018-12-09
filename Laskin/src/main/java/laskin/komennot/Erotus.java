@@ -14,6 +14,7 @@ import laskin.Sovelluslogiikka;
  * @author kape
  */
 public class Erotus extends Komento {
+    private int arvo;
 
     public Erotus(TextField tuloskentta, TextField syotekentta, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         super(tuloskentta, syotekentta, nollaa, undo, sovellus);
@@ -35,7 +36,7 @@ public class Erotus extends Komento {
 //    }
     @Override
     public void suorita() {
-        int arvo = getSyote();
+        arvo = getSyote();
         sovellus.miinus(arvo);
 
         getTulos();
@@ -55,7 +56,9 @@ public class Erotus extends Komento {
 
     @Override
     public void peru() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sovellus.plus(arvo);
+        getTulos();
+        enableOrDisableButtons();
     }
 
 }
