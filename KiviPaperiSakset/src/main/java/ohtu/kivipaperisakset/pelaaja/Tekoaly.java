@@ -26,14 +26,14 @@ public class Tekoaly  implements Pelaaja{
 
     }
 
-    public void asetaSiirto(String ekanSiirto) {
-        // ei tehdä mitään 
-    }
+//    public void asetaSiirto(String ekanSiirto) {
+//        // ei tehdä mitään 
+//    }
     @Override
     public String siirra(String ekanSiirto) {
         String tokanSiirto = annaSiirto();
             System.out.println("Helppo Tietokone valitsi: " + tokanSiirto);
-            asetaSiirto(ekanSiirto);
+           // asetaSiirto(ekanSiirto);
             return tokanSiirto;
     }
 }

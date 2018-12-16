@@ -1,6 +1,10 @@
 package ohtu.kivipaperisakset.pelaaja;
 
 // "Muistava tekoäly"
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class TekoalyParannettu implements Pelaaja {
 
     private String[] muisti;
