@@ -15,7 +15,6 @@ public class Vastustaja implements Pelaaja{
     Scanner scanner=new Scanner(System.in);
     
     public Vastustaja() {
-        System.out.println("luotu vastustaja");
     }
 
     @Override
